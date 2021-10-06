@@ -1,4 +1,6 @@
 const { Thought } = require('../models');
+const {signToken } =require('../utils/auth')
+const {User} = require('../models/User')
 
 const resolvers = {
   Query: {
@@ -12,9 +14,36 @@ const resolvers = {
   },
 
   Mutation: {
+    //add user w jwt
+    addUser: async (parent, { name, email, password }) => {
+      const user = await user.create({ name, email, password });
+      const token = signToken(user);
+
+      return { token, user };
+    },
+    //login w jwt
+    login: async (parent, { email, password }) => {
+      const user = await user.findOne({ email });
+
+      if (!user) {
+        throw new AuthenticationError('No user with this email found!');
+      }
+
+      const correctPw = await user.isCorrectPassword(password);
+
+      if (!correctPw) {
+        throw new AuthenticationError('Incorrect password!');
+      }
+
+      const token = signToken(user);
+      return { token, user };
+    },
+    
+
     addThought: async (parent, { thoughtText, thoughtAuthor }) => {
       return Thought.create({ thoughtText, thoughtAuthor });
     },
+
     addComment: async (parent, { thoughtId, commentText }) => {
       return Thought.findOneAndUpdate(
         { _id: thoughtId },
