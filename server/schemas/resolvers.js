@@ -1,41 +1,32 @@
-const { Thought } = require('../models');
+const { Comment } = require("../models");
+const { Review } = require("../models");
+const { User } = require("../models");
+const { token } = require("../utils/auth");
 
+// fieldName: (parent, args, context, info) => data;
 const resolvers = {
   Query: {
-    thoughts: async () => {
-      return Thought.find().sort({ createdAt: -1 });
+    comments: async () => {
+      return await Comment.find().sort({ createdAt: -1 });
     },
-
-    thought: async (parent, { thoughtId }) => {
-      return Thought.findOne({ _id: thoughtId });
+    user: async (parent, args) => {
+      return await User.findById(args.id).populate("comments");
     },
   },
 
   Mutation: {
-    addThought: async (parent, { thoughtText, thoughtAuthor }) => {
-      return Thought.create({ thoughtText, thoughtAuthor });
+    addUser: async (parent, { firstName, lastName, email, password }) => {
+      const user = await User.create({ firstName, lastName, email, password });
+      const token = signToken(user);
+      return { token, user };
     },
-    addComment: async (parent, { thoughtId, commentText }) => {
-      return Thought.findOneAndUpdate(
-        { _id: thoughtId },
-        {
-          $addToSet: { comments: { commentText } },
-        },
-        {
-          new: true,
-          runValidators: true,
-        }
-      );
+    // userID? Does it need to be in the model?
+    addReview: async (parent, { userId, reviewRating }) => {
+      return Review.create({ userId, reviewRating });
     },
-    removeThought: async (parent, { thoughtId }) => {
-      return Thought.findOneAndDelete({ _id: thoughtId });
-    },
-    removeComment: async (parent, { thoughtId, commentId }) => {
-      return Thought.findOneAndUpdate(
-        { _id: thoughtId },
-        { $pull: { comments: { _id: commentId } } },
-        { new: true }
-      );
+    // userID? Does it need to be in the model?
+    addComment: async (parent, { userId, commentText }) => {
+      return Comment.create({ userId, commentText });
     },
   },
 };
