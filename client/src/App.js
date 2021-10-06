@@ -9,6 +9,9 @@ function App() {
     <>
       <Router>
         {/* LOGIN ROUTE */}
+        <Route exact path="/">
+          <Album />
+          </Route>
         <Route exact path="/login">
           <SignIn />
         </Route>
