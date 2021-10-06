@@ -1,4 +1,6 @@
 import * as React from 'react';
+import {useState} from 'react';
+
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -15,6 +17,14 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {pink} from '@mui/material/colors'
 
 import { Icon } from '@iconify/react';
+
+
+
+import { useMutation } from '@apollo/client';
+import { ADD_USER } from '../../utils/mutations';
+
+import Auth from '../../utils/auth';
+
 
 function Copyright(props) {
   return (
@@ -39,15 +49,62 @@ const theme = createTheme({
 });
 
 export function SignUp() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    // eslint-disable-next-line no-console
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
+  const [formState, setFormState] = useState({
+    firstName: '',
+    lastName:'',
+    email: '',
+    password: '',
+  });
+  const [addUser, { error, data }] = useMutation(ADD_USER);
+
+  // update state based on form input changes
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+
+    setFormState({
+      ...formState,
+      [name]: value,
     });
   };
+
+  // submit form
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+    console.log(formState);
+
+    try {
+      const { data } = await addUser({
+        variables: { ...formState },
+      });
+
+      Auth.login(data.addUser.token);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  // const handleFormSubmit = async (event) => {
+  //   event.preventDefault();
+  //   console.log(formState);
+  //   try {
+  //     const { data } = await addUser({
+  //       variables: { ...formState },
+  //     });
+  //     Auth.login(data.addUser.token);
+  //   } catch (e) {
+  //     console.error(e);
+  //   }
+  // };
+
+  // const handleSubmit = (event) => {
+  //   event.preventDefault();
+  //   const data = new FormData(event.currentTarget);
+  //   // eslint-disable-next-line no-console
+  //   console.log({
+  //     email: data.get('email'),
+  //     password: data.get('password'),
+  //   });
+  // };
 
   return (
     <ThemeProvider theme={theme}>
@@ -68,7 +125,7 @@ export function SignUp() {
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Box component="form" noValidate onSubmit={handleFormSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -79,6 +136,8 @@ export function SignUp() {
                   id="firstName"
                   label="First Name"
                   autoFocus
+                  onChange={handleChange}
+                  value={formState.firstName}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -89,6 +148,9 @@ export function SignUp() {
                   label="Last Name"
                   name="lastName"
                   autoComplete="lname"
+                  onChange={handleChange}
+                  value={formState.lastName}
+
                 />
               </Grid>
               <Grid item xs={12}>
@@ -99,6 +161,8 @@ export function SignUp() {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
+                  onChange={handleChange}
+                  value={formState.email}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -110,6 +174,9 @@ export function SignUp() {
                   type="password"
                   id="password"
                   autoComplete="new-password"
+                  onChange={handleChange}
+                  value={formState.password}
+
                 />
               </Grid>
               <Grid item xs={12}>
@@ -120,6 +187,7 @@ export function SignUp() {
               </Grid>
             </Grid>
             <Button
+            onClick={handleFormSubmit}
               type="submit"
               fullWidth
               variant="contained"
