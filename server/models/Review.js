@@ -14,6 +14,9 @@ const reviewSchema = new Schema({
     default: Date.now,
     get: (timestamp) => dateFormat(timestamp),
   },
+  movieId: {
+    type: String,
+  },
 });
 
 const Review = model("Review", reviewSchema);

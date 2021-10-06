@@ -1,6 +1,7 @@
 const { Comment } = require("../models");
 const { Review } = require("../models");
 const { User } = require("../models");
+const Movie = require("../models/Movie");
 const { signToken } = require("../utils/auth");
 
 // fieldName: (parent, args, context, info) => data;
@@ -11,6 +12,9 @@ const resolvers = {
     },
     user: async (parent, args) => {
       return await User.findById(args.id).populate("comments");
+    },
+    movie: async (parent, args) => {
+      return await User.findById(args.id).populate("movies");
     },
   },
 

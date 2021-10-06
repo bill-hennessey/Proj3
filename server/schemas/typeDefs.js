@@ -13,7 +13,20 @@ const typeDefs = gql`
     reviewRating: Int
     reviewAuthor: String
     createdAt: String
+    movieId: String
   }
+
+  type Auth {
+    token: String
+    user: User
+  }
+
+  type Movie {
+    _id: ID
+    movieTitle: String
+    movieImg: String
+  }
+
   type User {
     _id: ID
     firstName: String
@@ -22,24 +35,27 @@ const typeDefs = gql`
     password: String
     comments: [String]
     reviews: [String]
+    movies: [Movie]
   }
 
   type Query {
     user(userId: ID): User!
     comments(movie: String): Comment
+    movie(userId: ID!): [Movie]
     #comments(userId:ID): Comment
   }
   #REVISIT. DO WE NEED TO REMOVE ANYTHING?
   type Mutation {
     addUser(
       firstName: String!
-      lastname: String!
+      lastName: String!
       email: String!
       password: String!
-    ): User
-    login(email: String!, password: String!): User
+    ): Auth
+    login(email: String!, password: String!): Auth
     addComment(userId: ID!, commentText: String!): Comment
     addReview(userId: ID!, reviewRating: String!): Review
+    saveMovie(userId: ID!, movieTitle: String!): Movie
   }
 `;
 
