@@ -28,6 +28,19 @@ const resolvers = {
     addComment: async (parent, { userId, commentText }) => {
       return Comment.create({ userId, commentText });
     },
+    login: async (parent, { email, password }) => {
+      const user = await User.findOne({ email });
+      console.log(email, password);
+      if (!user) {
+        throw new AuthenticationError("No profile with this email found!");
+      }
+      const correctPw = await user.isCorrectPassword(password);
+      if (!correctPw) {
+        throw new AuthenticationError("Incorrect password!");
+      }
+      const token = signToken(user);
+      return { token, user };
+    },
   },
 };
 

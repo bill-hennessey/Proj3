@@ -37,6 +37,7 @@ const typeDefs = gql`
       email: String!
       password: String!
     ): User
+    login(email: String!, password: String!): User
     addComment(userId: ID!, commentText: String!): Comment
     addReview(userId: ID!, reviewRating: String!): Review
   }
