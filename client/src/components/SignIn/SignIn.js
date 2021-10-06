@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {useState} from 'react';
 
 // style from MUI
 import Avatar from '@mui/material/Avatar';
@@ -15,8 +16,13 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {pink} from '@mui/material/colors'
-
 import { Icon } from '@iconify/react';
+
+import { useMutation } from '@apollo/client';
+import { LOGIN_USER } from '../../utils/mutations';  //  
+
+import Auth from '../../utils/auth';
+
 
 //footertag
 function Copyright(props) {
@@ -42,15 +48,53 @@ const theme = createTheme({
 });
 
 export function SignIn() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    // eslint-disable-next-line no-console
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
+
+  const [formState, setFormState] = useState({ email: '', password: '' }); // store email and password in formState
+          //login function, destructure error and data from payload
+  const [login, { error, data }] = useMutation(LOGIN_USER); 
+
+  // update state based on form input changes
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+
+    setFormState({
+      ...formState,
+      [name]: value,
     });
   };
+
+    // submit form (submit button)
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+    console.log(formState);
+
+    // lets try to login, call the login mutation, pass in formState (state variable holding variables for email & password)
+    try {
+      const { data } = await login({
+        variables: { ...formState },
+      });
+
+      Auth.login(data.login.token); //  calls login method from auth, pass in the token (from local storage)
+    } catch (e) {
+      console.error(e);
+    }
+
+    // clear form values
+    setFormState({
+      email: '',
+      password: '',
+    });
+  };
+
+  // const handleSubmit = (event) => {
+  //   event.preventDefault();
+  //   const data = new FormData(event.currentTarget);
+  //   // eslint-disable-next-line no-console
+  //   console.log({
+  //     email: data.get('email'),
+  //     password: data.get('password'),
+  //   });
+  // };
 
   return (
     <ThemeProvider theme={theme}>
@@ -75,7 +119,7 @@ export function SignIn() {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <Box component="form" onSubmit={handleFormSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
               margin="normal"
               required
@@ -85,6 +129,8 @@ export function SignIn() {
               name="email"
               autoComplete="email"
               autoFocus
+              value={formState.email}
+              onChange={handleChange}            
             />
             <TextField
               margin="normal"
@@ -95,6 +141,8 @@ export function SignIn() {
               type="password"
               id="password"
               autoComplete="current-password"
+              value={formState.password}
+              onChange={handleChange}            
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
