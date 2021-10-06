@@ -1,13 +1,13 @@
 const { Comment } = require("../models");
 const { Review } = require("../models");
 const { User } = require("../models");
-const { token } = require("../utils/auth");
+const { signToken } = require("../utils/auth");
 
 // fieldName: (parent, args, context, info) => data;
 const resolvers = {
   Query: {
     comments: async () => {
-      return await Comment.find().sort({ createdAt: -1 });
+      return await Comment.find(); //.sort({ createdAt: -1 });
     },
     user: async (parent, args) => {
       return await User.findById(args.id).populate("comments");
