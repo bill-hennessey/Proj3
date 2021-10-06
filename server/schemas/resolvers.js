@@ -28,6 +28,7 @@ const resolvers = {
     addReview: async (parent, { userId, reviewRating }) => {
       return Review.create({ userId, reviewRating });
     },
+    // is this right?
     // userID? Does it need to be in the model?
     addComment: async (parent, { userId, commentText }) => {
       return Comment.create({ userId, commentText });
@@ -44,6 +45,26 @@ const resolvers = {
       }
       const token = signToken(user);
       return { token, user };
+    },
+
+    // saveMovie: async (parent, { userId, movieTitle }) => {
+    //   return Movie.create({ userId, movieTitle });
+    // },
+
+    saveMovie: async (parent, args, context) => {
+      if (context.user) {
+        //   const savedBook = await Book.create({ ...args, username: context.user.username });
+
+        const updatedUser = await User.findByIdAndUpdate(
+          { _id: context.user._id },
+          { $addToSet: { savedMovie: args.input } },
+          { new: true }
+        );
+
+        return updatedUser;
+      }
+
+      throw new AuthenticationError("You need to be logged in!");
     },
   },
 };

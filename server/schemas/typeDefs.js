@@ -44,6 +44,11 @@ const typeDefs = gql`
     movie(userId: ID!): [Movie]
     #comments(userId:ID): Comment
   }
+
+  input savedMovie {
+    movieTitle: String
+    movieImg: String
+  }
   #REVISIT. DO WE NEED TO REMOVE ANYTHING?
   type Mutation {
     addUser(
@@ -55,7 +60,8 @@ const typeDefs = gql`
     login(email: String!, password: String!): Auth
     addComment(userId: ID!, commentText: String!): Comment
     addReview(userId: ID!, reviewRating: String!): Review
-    saveMovie(userId: ID!, movieTitle: String!): Movie
+    #saveMovie(userId: ID!, movieTitle: String!): Movie
+    saveMovie(input: savedMovie!): User
   }
 `;
 
