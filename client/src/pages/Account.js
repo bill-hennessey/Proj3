@@ -4,9 +4,9 @@ import { Icon } from '@iconify/react';
 import {pink} from '@mui/material/colors'
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
 
 import Auth from '../utils/auth';
+import cow from '../../src/bigcow.png';
 
 const styles = {
   mainheader: {
@@ -22,6 +22,11 @@ const styles = {
   spanStyle:{
       color:'rgb(233,30,99)',
       fontWeight:'bolder'
+  },
+  cow:{
+    position:'fixed',
+    width:'100%',
+    bottom:50
   }
 };
 
@@ -57,7 +62,7 @@ export const Account = () => {
 
         </Typography>
 
-
+      <img style={styles.cow} alt="I am a big cow in a field" src={cow}/>
         </>
     )
 }

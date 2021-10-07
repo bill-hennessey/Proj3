@@ -7,9 +7,7 @@ import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import LocalMoviesIcon from '@mui/icons-material/LocalMovies';
 import GitHubIcon from '@mui/icons-material/GitHub';
-
-import {pink} from '@mui/material/colors'
-import { Icon } from '@iconify/react';
+import HomeIcon from '@mui/icons-material/Home';
 
 import auth from '../../utils/auth';
 
@@ -24,8 +22,6 @@ const styles = {
   },
 
 }
-
-
   // Checks if user is logged in to conditionally render the Account/Login Page
   let loginLink = ''
   let loginText = ''
@@ -57,6 +53,7 @@ export function BottomNav() {
           setValue(newValue);
         }}
       >
+        <BottomNavigationAction href="/" label="Home" style={styles.linkStyle} icon={<HomeIcon />} />
         <BottomNavigationAction href={loginLink} label={loginText} style={styles.linkStyle}icon={<SupervisorAccountIcon />} />
         <BottomNavigationAction href="/favorites" label="Favorites" style={styles.linkStyle}icon={<FavoriteIcon />} />
         <BottomNavigationAction href="/movies" label="Find Movies" style={styles.linkStyle}icon={<LocalMoviesIcon />} />

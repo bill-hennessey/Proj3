@@ -12,6 +12,8 @@ import Grid from '@mui/material/Grid'
 import { Icon } from '@iconify/react';
 import {pink} from '@mui/material/colors'
 
+import cow from '../../src/imgbin_cow-png.png';
+
 
 //  creator data
 const contributorData = [
@@ -25,7 +27,7 @@ const contributorData = [
         imgLink: 'https://avatars.githubusercontent.com/u/87505077?v=4',
         name: 'Bill Hennessey',
         gitLink: 'https://github.com/bill-hennessey',
-        liLink: ''
+        liLink: 'https://www.linkedin.com/in/bill-hennessey-a6578ba1/'
 
     },
     {
@@ -38,8 +40,8 @@ const contributorData = [
     {
         imgLink: 'https://avatars.githubusercontent.com/u/87586398?v=4',
         name: 'Alex Lopez',
-        gitLink: 'https://github.com/patrickbrown-io',
-        liLink: ''
+        gitLink: 'https://github.com/alexito24',
+        liLink: 'https://www.linkedin.com/in/heriberto-lopez-b04762217/'
 
     },
 ];
@@ -59,11 +61,17 @@ const styles = {
   spanStyle:{
       color:'rgb(233,30,99)',
       fontWeight:'bolder'
+  },
+
+  cow:{
+    maxWidth:"700px",
+    position: 'fixed',
+    bottom:0,
+    right:0
   }
 
 
 };
-
 
 export function AboutUs() {
   return (
@@ -109,6 +117,7 @@ export function AboutUs() {
         </Card>
     ))}
     </Grid>
+        <img src={cow} alt="I am a cow" style={styles.cow} />
     </>
   );
 }

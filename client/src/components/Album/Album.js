@@ -1,7 +1,5 @@
 import * as React from "react";
-import AppBar from "@mui/material/AppBar";
 import Button from "@mui/material/Button";
-import CameraIcon from "@mui/icons-material/PhotoCamera";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -38,8 +36,6 @@ const styles = {
 
 const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
-
-
 export function Album() {
   return (
     <>
@@ -65,7 +61,7 @@ export function Album() {
               color="text.primary"
               gutterBottom
             >
-                          <img style={styles.img} src={cow}/>
+                          <img style={styles.img} src={cow} alt="I am a cow"/>
 
               <span style={styles.pink}>moo</span><span style={styles.brown}>vie</span>
 
