@@ -15,6 +15,7 @@ import {BottomNav} from "./components/BottomNav/BottomNav";
 import { AboutUs } from "./pages/AboutUs"
 import {Account} from "./pages/Account";
 
+//Adding comment to force push
 
 // Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({
