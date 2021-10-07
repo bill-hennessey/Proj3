@@ -12,6 +12,7 @@ import { SignIn } from "./components/SignIn/SignIn";
 import { SignUp } from "./components/SignUp/SignUp";
 import { Album } from "./components/Album/Album";
 import {BottomNav} from "./components/BottomNav/BottomNav";
+import { AboutUs } from "./pages/AboutUs"
 
 
 // Construct our main GraphQL API endpoint
@@ -54,6 +55,9 @@ function App() {
         <Route exact path="/signup">
           <SignUp />
         </Route>
+        <Route exact path="/aboutus">
+          <AboutUs />
+          </Route>
         <BottomNav />
       </Router>
     </ApolloProvider>
