@@ -1,6 +1,7 @@
 const { Schema, model } = require("mongoose");
 const movieSchema = require("./Movie");
 const bcrypt = require("bcrypt");
+const Comment = require("./Comment");
 
 const userSchema = new Schema({
   firstName: {
@@ -29,6 +30,7 @@ const userSchema = new Schema({
   comments: [
     {
       type: String,
+      ref: "Comment",
       trim: true,
     },
   ],

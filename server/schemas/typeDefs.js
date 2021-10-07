@@ -4,16 +4,16 @@ const typeDefs = gql`
   type Comment {
     _id: ID
     commentText: String
-    commentAuthor: String
+    email: String
     createdAt: String
   }
 
   type Review {
     _id: ID
-    reviewRating: Int
-    reviewAuthor: String
+    reviewRating: String
+    userId: String
     createdAt: String
-    movieId: String
+    #movieId: String
   }
 
   type Auth {
@@ -23,8 +23,8 @@ const typeDefs = gql`
 
   type Movie {
     _id: ID
-    movieTitle: String
-    movieImg: String
+    Title: String
+    Poster: String
   }
 
   type User {
@@ -35,19 +35,19 @@ const typeDefs = gql`
     password: String
     comments: [String]
     reviews: [String]
-    movies: [Movie]
+    savedMovies: [Movie]
   }
 
   type Query {
-    user(userId: ID): User!
+    user(_id: String): User!
     comments(movie: String): Comment
-    movie(userId: ID!): [Movie]
+    movie(userId: String!): [Movie]
     #comments(userId:ID): Comment
   }
 
   input savedMovie {
-    movieTitle: String
-    movieImg: String
+    Title: String
+    Poster: String
   }
   #REVISIT. DO WE NEED TO REMOVE ANYTHING?
   type Mutation {
@@ -58,8 +58,8 @@ const typeDefs = gql`
       password: String!
     ): Auth
     login(email: String!, password: String!): Auth
-    addComment(userId: ID!, commentText: String!): Comment
-    addReview(userId: ID!, reviewRating: String!): Review
+    addComment(email: String!, commentText: String!): Comment
+    addReview(userId: String!, reviewRating: String!): Review
     #saveMovie(userId: ID!, movieTitle: String!): Movie
     saveMovie(input: savedMovie!): User
   }

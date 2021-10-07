@@ -10,8 +10,8 @@ const resolvers = {
     comments: async () => {
       return await Comment.find(); //.sort({ createdAt: -1 });
     },
-    user: async (parent, args) => {
-      return await User.findById(args.id).populate("comments");
+    user: async (parent, { _id }) => {
+      return await User.findById({ _id }).populate("comments");
     },
     movie: async (parent, args) => {
       return await User.findById(args.id).populate("movies");
