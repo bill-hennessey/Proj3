@@ -10,41 +10,44 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import Link from "@mui/material/Link";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import Avatar from '@mui/material/Avatar';
+import { Icon } from '@iconify/react';
+import {pink} from '@mui/material/colors'
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center">
-      {"Copyright © "}
-      <Link color="inherit" href="https://material-ui.com/">
-        moovie
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
+import cow from "../../../src/pngegg.png";
+
+const styles = {
+  pink:{
+    color:'#E91E63',
+    fontWeight:'bolder'
+  },
+  brown:{
+    color:'#3f000f',
+    fontWeight:'light'
+  },
+  buttons:{
+    background:'#E91E63'
+  },
+  img:{
+    maxHeight:'250px',
+    alignContent:'center'
+  }
 }
 
 const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
-const theme = createTheme();
+
 
 export function Album() {
   return (
-    <ThemeProvider theme={theme}>
+    <>
       <CssBaseline />
-      <AppBar position="relative">
-        <Toolbar>
-          <CameraIcon sx={{ mr: 2 }} />
-          <Typography variant="h6" color="inherit" noWrap>
-            Album layout
-          </Typography>
-        </Toolbar>
-      </AppBar>
+      <Avatar  sx={{ m: 1, bgcolor: pink[500] }}>
+        <Icon icon="mdi:cow" />
+      </Avatar>
+
       <main>
         {/* Hero unit */}
         <Box
@@ -62,17 +65,19 @@ export function Album() {
               color="text.primary"
               gutterBottom
             >
-              Album layout
+                          <img style={styles.img} src={cow}/>
+
+              <span style={styles.pink}>moo</span><span style={styles.brown}>vie</span>
+
             </Typography>
+                          <br />
             <Typography
               variant="h5"
               align="center"
               color="text.secondary"
               paragraph
             >
-              Something short and leading about the collection below—its
-              contents, the creator, etc. Make it short and sweet, but not too
-              short so folks don&apos;t simply skip over it entirely.
+              Mooooove over Rotten Tomatoes. <br /> Browse new, trending and classic movies without a cluttered UI. Review movies and manage your movie lists to get watching.
             </Typography>
             <Stack
               sx={{ pt: 4 }}
@@ -80,13 +85,14 @@ export function Album() {
               spacing={2}
               justifyContent="center"
             >
-              <Button variant="contained">Main call to action</Button>
-              <Button variant="outlined">Secondary action</Button>
+              <Button href="/movies" style={styles.buttons}variant="contained">Search Moovies</Button>
+              <Button href="/trending" style={styles.buttons}variant="contained">Trending Moovies</Button>
             </Stack>
           </Container>
         </Box>
-        <Container sx={{ py: 8 }} maxWidth="md">
+        <Container sx={{ pt: 4, pb: 8 }} maxWidth="md">
           {/* End hero unit */}
+          <h1>Popular Moovies</h1>
           <Grid container spacing={4}>
             {cards.map((card) => (
               <Grid item key={card} xs={12} sm={6} md={4}>
@@ -116,7 +122,7 @@ export function Album() {
                     </Typography>
                   </CardContent>
                   <CardActions>
-                    <Button size="small">View</Button>
+                    <Button size="small">Save</Button>
                     <Button size="small">Edit</Button>
                   </CardActions>
                 </Card>
@@ -126,21 +132,8 @@ export function Album() {
         </Container>
       </main>
       {/* Footer */}
-      <Box sx={{ bgcolor: "background.paper", p: 6 }} component="footer">
-        <Typography variant="h6" align="center" gutterBottom>
-          Footer
-        </Typography>
-        <Typography
-          variant="subtitle1"
-          align="center"
-          color="text.secondary"
-          component="p"
-        >
-          Something here to give the footer a purpose!
-        </Typography>
-        <Copyright />
-      </Box>
+      
       {/* End footer */}
-    </ThemeProvider>
+    </>
   );
 }
