@@ -1,4 +1,5 @@
 const { Schema, model } = require("mongoose");
+// const User = require("./User");
 
 const commentSchema = new Schema({
   commentText: {
@@ -8,9 +9,9 @@ const commentSchema = new Schema({
     maxlength: 280,
     trim: true,
   },
-  commentAuthor: {
+  email: {
     type: String,
-    required: true,
+    ref: "User",
     trim: true,
   },
   createdAt: {

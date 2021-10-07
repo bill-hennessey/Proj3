@@ -1,11 +1,11 @@
 const { Schema, model } = require("mongoose");
 
 const movieSchema = new Schema({
-  movieTitle: {
+  Title: {
     type: String,
   },
 
-  movieImg: {
+  Poster: {
     type: String,
   },
 });

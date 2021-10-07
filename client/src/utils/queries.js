@@ -11,3 +11,11 @@ export const QUERY_USER = gql`
     }
   }
 `;
+export const QUERY_MOVIE = gql`
+  query movie($userId: String!) {
+    movie(userId: $userId) {
+      [movies]
+      }
+    }
+  }
+`;
