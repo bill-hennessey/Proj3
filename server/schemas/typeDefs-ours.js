@@ -7,6 +7,7 @@ const typeDefs = gql`
     email: String
     createdAt: String
   }
+
   type Review {
     _id: ID
     reviewRating: String
@@ -14,31 +15,37 @@ const typeDefs = gql`
     createdAt: String
     #movieId: String
   }
+
   type Auth {
     token: String
     user: User
   }
+
   type Movie {
     _id: ID
     Title: String
     Poster: String
   }
+
   type User {
     _id: ID
     firstName: String
     lastName: String
     email: String
     password: String
-    comments: [Comment]
+    comments: [String]
+    #[comment]
     reviews: [String]
     savedMovies: [Movie]
   }
+
   type Query {
     user(_id: String): User!
-    comments(_id: String): [Comment]
+    comments(movie: String): Comment
     movie(userId: String!): [Movie]
     #comments(userId:ID): Comment
   }
+
   input savedMovie {
     Title: String
     Poster: String
@@ -52,10 +59,11 @@ const typeDefs = gql`
       password: String!
     ): Auth
     login(email: String!, password: String!): Auth
-    addComment(userId: ID!, commentText: String!): User
+    addComment(email: String!, commentText: String!): Comment
     addReview(userId: String!, reviewRating: String!): Review
     #saveMovie(userId: ID!, movieTitle: String!): Movie
     saveMovie(input: savedMovie!): User
   }
 `;
+
 module.exports = typeDefs;

@@ -29,9 +29,8 @@ const userSchema = new Schema({
   },
   comments: [
     {
-      type: String,
+      type: Schema.Types.ObjectId,
       ref: "Comment",
-      trim: true,
     },
   ],
   savedMovies: [movieSchema],
