@@ -30,7 +30,7 @@ const typeDefs = gql`
     email: String
     password: String
     comments: [Comment]
-    reviews: [String]
+    reviews: [Review]
     savedMovies: [Movie]
   }
   type Query {
@@ -39,11 +39,11 @@ const typeDefs = gql`
     movie(userId: String!): [Movie]
     #comments(userId:ID): Comment
   }
-  input savedMovie {
+  input savedMovieInput {
     Title: String
     Poster: String
   }
-  #REVISIT. DO WE NEED TO REMOVE ANYTHING?
+
   type Mutation {
     addUser(
       firstName: String!
@@ -53,9 +53,9 @@ const typeDefs = gql`
     ): Auth
     login(email: String!, password: String!): Auth
     addComment(userId: ID!, commentText: String!): User
-    addReview(userId: String!, reviewRating: String!): Review
-    #saveMovie(userId: ID!, movieTitle: String!): Movie
-    saveMovie(input: savedMovie!): User
+    addReview(userId: ID!, reviewRating: String!): User
+
+    saveMovie(savedMovie: savedMovieInput!): User
   }
 `;
 module.exports = typeDefs;
