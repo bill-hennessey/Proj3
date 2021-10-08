@@ -1,3 +1,4 @@
+const { AuthenticationError } = require("apollo-server-errors");
 const { Comment } = require("../models");
 const { Review } = require("../models");
 const { User } = require("../models");
@@ -30,9 +31,22 @@ const resolvers = {
     },
     // is this right?
     // userID? Does it need to be in the model?
-    addComment: async (parent, { userId, commentText }) => {
-      return Comment.create({ userId, commentText });
+    addComment: async (parent, { userId, commentText }, context) => {
+      if (context.user) {
+        const commentInfo = await Comment.create({ commentText });
+        return User.findOneAndUpdate(
+          { _id: userId },
+          {
+            $addToSet: {
+              comments: commentInfo._id,
+            },
+          },
+          { new: true }
+        ).populate("comments");
+      }
+      throw new AuthenticationError("You need to be logged in!");
     },
+    // just changed userId > _id
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
       console.log(email, password);

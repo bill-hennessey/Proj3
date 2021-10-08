@@ -9,11 +9,7 @@ const commentSchema = new Schema({
     maxlength: 280,
     trim: true,
   },
-  email: {
-    type: String,
-    ref: "User",
-    trim: true,
-  },
+
   createdAt: {
     type: Date,
     default: Date.now,
