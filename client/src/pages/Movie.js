@@ -27,7 +27,7 @@ export const Movie = () => {
 	const [searchValue, setSearchValue] = useState('');
 
 	const getMovieRequest = async (searchValue) => {
-		const url = `http://www.omdbapi.com/?s=${searchValue}&apikey=95c5c4f`;
+		const url = `https://www.omdbapi.com/?s=${searchValue}&apikey=95c5c4f`;
 
 		const response = await fetch(url);
 		const responseJson = await response.json();
