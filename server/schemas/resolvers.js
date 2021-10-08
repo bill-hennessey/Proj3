@@ -26,20 +26,20 @@ const resolvers = {
       return { token, user };
     },
 
-    addComment: async (parent, { userId, commentText }, context) => {
-      if (context.user) {
-        const commentInfo = await Comment.create({ commentText });
-        return User.findOneAndUpdate(
-          { _id: userId },
-          {
-            $addToSet: {
-              comments: commentInfo._id,
-            },
+    addComment: async (parent, { userId, title, commentText }, context) => {
+      // if (context.user) {
+      const commentInfo = await Comment.create({ title, commentText });
+      return User.findOneAndUpdate(
+        { _id: userId },
+        {
+          $addToSet: {
+            comments: commentInfo._id,
           },
-          { new: true }
-        ).populate("comments");
-      }
-      throw new AuthenticationError("You need to be logged in!");
+        },
+        { new: true }
+      ).populate("comments");
+      // }
+      // throw new AuthenticationError("You need to be logged in!");
     },
 
     addReview: async (parent, { userId, reviewRating }, context) => {

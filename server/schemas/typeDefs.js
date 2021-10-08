@@ -3,6 +3,7 @@ const { gql } = require("apollo-server-express");
 const typeDefs = gql`
   type Comment {
     _id: ID
+    title: String
     commentText: String
     email: String
     createdAt: String
@@ -52,7 +53,7 @@ const typeDefs = gql`
       password: String!
     ): Auth
     login(email: String!, password: String!): Auth
-    addComment(userId: ID!, commentText: String!): User
+    addComment(userId: ID!, title: String!, commentText: String!): User
     addReview(userId: ID!, reviewRating: String!): User
 
     saveMovie(savedMovie: savedMovieInput!): User
