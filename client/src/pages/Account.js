@@ -25,8 +25,8 @@ const styles = {
   },
   cow:{
     position:'fixed',
-    width:'100%',
-    bottom:50
+    width:'35%',
+    bottom:'0',
   }
 };
 
