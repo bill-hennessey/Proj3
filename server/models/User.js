@@ -33,11 +33,17 @@ const userSchema = new Schema({
       ref: "Comment",
     },
   ],
-  savedMovies: [movieSchema],
+  savedMovies: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Movie",
+    },
+  ],
+
   reviews: [
     {
-      type: String,
-      trim: true,
+      type: Schema.Types.ObjectId,
+      ref: "Review",
     },
   ],
 });
