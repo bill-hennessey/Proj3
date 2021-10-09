@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {useState} from 'react';
 // import { Link } from 'react-router-dom';
-import {useMutation} from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import Avatar from '@mui/material/Avatar';
 import { Icon } from '@iconify/react';
 import {pink} from '@mui/material/colors'
@@ -57,10 +57,13 @@ const handleChange = (event) => {
           movieTitle:params
         }
         
-        let variable = {
-          ...userID, ...realTitle, ...formState
+        let variables = {
+          userId: {...userID},
+          movieTitle:{...realTitle}, 
+          commentText: {...formState}
         }
-        console.log(variable)
+
+        console.log(variables)
         // let token = Auth.getToken();
   
 
@@ -70,7 +73,7 @@ const handleChange = (event) => {
 
         try {
       const { data } = await addComment({
-        variables: {variable}
+        variables: {userId, ...params, ...formState}
       });
 
     } catch (e) {
