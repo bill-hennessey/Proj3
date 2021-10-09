@@ -73,7 +73,7 @@ function App() {
         <Route exact path="/favorites">
           <Favorites />
         </Route>
-        <Route exact path="/comment:title">
+        <Route exact path="/comment/:movieTitle">
           <Comment />
         </Route>
         <BottomNav />

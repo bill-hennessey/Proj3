@@ -11,7 +11,6 @@ import SearchBox from '../components/Movie/SearchBox';
 import { addFavourites } from '../components/Movie/AddFavourites';
 import RemoveFavourites from '../components/Movie/RemoveFavourites';
 
-
 const styles = {
 	bottomMovies: {
 		marginBottom: '5%'
@@ -78,7 +77,7 @@ export const Movie = () => {
 
 		<div className='container-fluid movie-app'>
 			<div className='row d-flex align-items-center mt-4 mb-4'>
-				<MovieListHeading heading='Movies' />
+				<MovieListHeading heading={'Movies'} />
 				<SearchBox searchValue={searchValue} setSearchValue={setSearchValue} />
 			</div>
 	

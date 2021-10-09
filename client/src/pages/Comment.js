@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {useState} from 'react';
+// import { Link } from 'react-router-dom';
 import {useMutation} from '@apollo/client';
 import Avatar from '@mui/material/Avatar';
 import { Icon } from '@iconify/react';
@@ -7,6 +8,8 @@ import {pink} from '@mui/material/colors'
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import { useParams } from 'react-router-dom';
+
 
 import Auth from '../utils/auth';
 
@@ -24,7 +27,7 @@ export const Comment = () => {
 	const [addComment, { error, data }] = useMutation(ADD_COMMENT); 
 
 
-    console.log(Auth.getUser().data._id)
+    // console.log(Auth.getUser().data._id)
 
 
 
@@ -37,14 +40,37 @@ const handleChange = (event) => {
     });
   };
 	
+  // movie title
+  let params = useParams().movieTitle;
+  // console.log(params)
+
 	const handleAddComment = async (event) => {
         event.preventDefault();
-        console.log(formState)
+        // console.log({...formState})
         let userId = Auth.getUser().data._id;
+
+        let userID = {
+          userId:userId
+        }
+
+        let realTitle = {
+          movieTitle:params
+        }
+        
+        let variable = {
+          ...userID, ...realTitle, ...formState
+        }
+        console.log(variable)
+        // let token = Auth.getToken();
+  
+
+        // console.log(userID)
+        // console.log(formState)
+        // console.log(realTitle)
 
         try {
       const { data } = await addComment({
-        variables: { ...formState },
+        variables: {variable}
       });
 
     } catch (e) {
@@ -69,9 +95,9 @@ const handleChange = (event) => {
             autoComplete="off"
             onSubmit={handleAddComment}
             >
-                <h1>hello</h1>
+                <h1>Leave a comment</h1>
       <TextField onChange={handleChange}            
- id="filled-basic" name="commentText" label="Filled" variant="filled" value={formState.commentText}
+ id="filled-basic" name="commentText" label="Comment here" variant="filled" value={formState.commentText}
 />
         <Button
               type="submit"

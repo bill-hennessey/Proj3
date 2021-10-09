@@ -26,9 +26,9 @@ const resolvers = {
       return { token, user };
     },
 
-    addComment: async (parent, { userId, title, commentText }, context) => {
-      if (context.user) {
-        const commentInfo = await Comment.create({ title, commentText });
+    addComment: async (parent, { userId, movieTitle, commentText }, context) => {
+      // if (context.user) {
+        const commentInfo = await Comment.create({ movieTitle, commentText });
         return User.findOneAndUpdate(
           { _id: userId },
           {
@@ -38,8 +38,8 @@ const resolvers = {
           },
           { new: true }
         ).populate("comments");
-      }
-      throw new AuthenticationError("You need to be logged in!");
+      // }
+      // throw new AuthenticationError("You need to be logged in!");
     },
 
     addReview: async (parent, { userId, reviewRating }, context) => {
