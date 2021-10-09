@@ -3,7 +3,6 @@ import React from 'react';
 const RemoveFavourites = () => {
 	return (
 		<>
-			
 			<svg
 				width='1em'
 				height='1em'

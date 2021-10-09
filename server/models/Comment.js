@@ -9,7 +9,7 @@ const commentSchema = new Schema({
     maxlength: 280,
     trim: true,
   },
-  title: {
+  movieTitle: {
     type: String,
   },
 

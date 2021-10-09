@@ -16,6 +16,8 @@ import {BottomNav} from "./components/BottomNav/BottomNav";
 import { AboutUs } from "./pages/AboutUs"
 import {Account} from "./pages/Account";
 import {Movie} from "./pages/Movie"
+import { Favorites } from "./pages/Favorites";
+import { Comment } from "./pages/Comment"
 
 //Adding comment to force push
 
@@ -67,6 +69,12 @@ function App() {
           </Route>
         <Route exact path="/movies">
           <Movie />
+        </Route>
+        <Route exact path="/favorites">
+          <Favorites />
+        </Route>
+        <Route exact path="/comment/:movieTitle">
+          <Comment />
         </Route>
         <BottomNav />
       </Router>
