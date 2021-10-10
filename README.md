@@ -18,7 +18,11 @@ Nothing to install, simply visit our Heroku-deployed application [here](https://
 
 ## Usage
 
-On the bottom of the homepage, Login to Moovie's secure database and begin searching for movies you want to see. Of if this is your first time visiting us, click the "Don't have an account? Sign Up" link to create an account. On the homepage, click "Search Moovies" to browse the remote database of all movies ever made (we assume). Click the "heart" icon to save the movie to your list of favorites so you remember to view and comment on the movie later.
+On the bottom of the homepage, Login to Moovie’s secure database and begin searching for movies you want to see. Of if this is your first time visiting us, click the “Don’t have an account? Sign Up” link to create an account.
+On the homepage (click “Home” at the bottom), click “Search Moovies” (or “Find Movies” at the bottom) to browse the remote database of all movies ever made (we assume). Click the “heart” icon to save the movie to your list of favorites so you remember to view and comment on the movie later.
+Click “Favorites” at the bottom to see your list of saved movies. Click “comment” to add your opinion of the movie for other users to see. Type your comment into the “comment here” field, and click “add comment” to save it.
+Click the the “Account” button at the bottom to see information specific to your user account and to Logout of Moovies.
+Click the “About us” link to get information about the developers.
 
 ![screenshot](assets/images/Moovie-screenshot.png "Moovie")
 
