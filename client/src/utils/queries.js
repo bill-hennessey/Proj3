@@ -7,15 +7,21 @@ export const QUERY_USER = gql`
       firstName
       lastName
       email
-      }
     }
   }
 `;
-export const QUERY_MOVIE = gql`
-  query movie($userId: String!) {
-    movie(userId: $userId) {
-      [movies]
-      }
+// export const QUERY_MOVIE = gql`
+//   query movie($userId: String!) {
+//     movie(userId: $userId) {
+//       [movies]
+//     }
+//   }
+// `;
+
+export const QUERY_COMMENT = gql`
+  query comments{
+    comments {    
+      commentText
+      movieTitle
     }
-  }
-`;
+  }`;

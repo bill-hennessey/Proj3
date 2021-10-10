@@ -1,3 +1,4 @@
+const { AuthenticationError } = require("apollo-server-errors");
 const { Comment } = require("../models");
 const { Review } = require("../models");
 const { User } = require("../models");
@@ -24,15 +25,55 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
-    // userID? Does it need to be in the model?
-    addReview: async (parent, { userId, reviewRating }) => {
-      return Review.create({ userId, reviewRating });
+
+    addComment: async (parent, { userId, movieTitle, commentText }, context) => {
+      // if (context.user) {
+        const commentInfo = await Comment.create({ movieTitle, commentText });
+        return User.findOneAndUpdate(
+          { _id: userId },
+          {
+            $addToSet: {
+              comments: commentInfo._id,
+            },
+          },
+          { new: true }
+        ).populate("comments");
+      // }
+      // throw new AuthenticationError("You need to be logged in!");
     },
-    // is this right?
-    // userID? Does it need to be in the model?
-    addComment: async (parent, { userId, commentText }) => {
-      return Comment.create({ userId, commentText });
+
+    addReview: async (parent, { userId, reviewRating }, context) => {
+      if (context.user) {
+        const reviewInfo = await Review.create({ reviewRating });
+        return User.findOneAndUpdate(
+          { _id: userId },
+          {
+            $addToSet: {
+              reviews: reviewInfo._id,
+            },
+          },
+          { new: true }
+        ).populate("reviews");
+      }
+      throw new AuthenticationError("You need to be logged in!");
     },
+
+    saveMovie: async (parent, { userId, savedMovie }, context) => {
+      if (context.user) {
+        const movieInfo = await Movie.create({ savedMovie });
+        return User.findOneAndUpdate(
+          { _id: userId },
+          {
+            $addToSet: {
+              savedMovies: movieInfo._id,
+            },
+          },
+          { new: true }
+        ).populate("savedMovies");
+      }
+      throw new AuthenticationError("You need to be logged in!");
+    },
+
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
       console.log(email, password);
@@ -45,26 +86,6 @@ const resolvers = {
       }
       const token = signToken(user);
       return { token, user };
-    },
-
-    // saveMovie: async (parent, { userId, movieTitle }) => {
-    //   return Movie.create({ userId, movieTitle });
-    // },
-
-    saveMovie: async (parent, args, context) => {
-      if (context.user) {
-        //   const savedBook = await Book.create({ ...args, username: context.user.username });
-
-        const updatedUser = await User.findByIdAndUpdate(
-          { _id: context.user._id },
-          { $addToSet: { savedMovie: args.input } },
-          { new: true }
-        );
-
-        return updatedUser;
-      }
-
-      throw new AuthenticationError("You need to be logged in!");
     },
   },
 };

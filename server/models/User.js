@@ -29,16 +29,21 @@ const userSchema = new Schema({
   },
   comments: [
     {
-      type: String,
+      type: Schema.Types.ObjectId,
       ref: "Comment",
-      trim: true,
     },
   ],
-  savedMovies: [movieSchema],
+  savedMovies: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Movie",
+    },
+  ],
+
   reviews: [
     {
-      type: String,
-      trim: true,
+      type: Schema.Types.ObjectId,
+      ref: "Review",
     },
   ],
 });

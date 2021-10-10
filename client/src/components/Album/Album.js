@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useQuery } from '@apollo/client';
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -13,7 +14,9 @@ import Container from "@mui/material/Container";
 import Avatar from '@mui/material/Avatar';
 import { Icon } from '@iconify/react';
 import {pink} from '@mui/material/colors'
+import { useEffect } from 'react';
 
+import { QUERY_COMMENT } from "../../utils/queries";
 import cow from "../../../src/pngegg.png";
 
 const styles = {
@@ -34,9 +37,30 @@ const styles = {
   }
 }
 
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+// const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+let comments = [];
 
 export function Album() {
+   const { loading, data } = useQuery(QUERY_COMMENT);
+    const comments = data?.comments || [];
+
+
+  // const commmentData = (event) => {
+  //   try {
+  //     const {comments} = data;
+  //     console.log(comments)
+  //   } catch {
+
+  //   }
+  // } 
+//   useEffect(() => {
+//     // Update the localStorage count variable using the setItem method
+//     //myCount = key, value in that key = count 
+//   console.log(comments)
+//   return comments;
+//  },);
+ 
+
   return (
     <>
       <CssBaseline />
@@ -86,12 +110,13 @@ export function Album() {
             </Stack>
           </Container>
         </Box>
+                  <h1>New Reviews</h1>
+
         <Container sx={{ pt: 4, pb: 8 }} maxWidth="md">
           {/* End hero unit */}
-          <h1>Popular Moovies</h1>
           <Grid container spacing={4}>
-            {cards.map((card) => (
-              <Grid item key={card} xs={12} sm={6} md={4}>
+            {comments.map((comment) => (
+              <Grid  xs={12} sm={6} md={4}>
                 <Card
                   sx={{
                     height: "100%",
@@ -99,28 +124,16 @@ export function Album() {
                     flexDirection: "column",
                   }}
                 >
-                  <CardMedia
-                    component="img"
-                    sx={{
-                      // 16:9
-                      pt: "56.25%",
-                    }}
-                    image="https://source.unsplash.com/random"
-                    alt="random"
-                  />
+
                   <CardContent sx={{ flexGrow: 1 }}>
                     <Typography gutterBottom variant="h5" component="h2">
-                      Heading
+                      {comment.movieTitle}
                     </Typography>
                     <Typography>
-                      This is a media card. You can use this section to describe
-                      the content.
+                      {comment.commentText}
                     </Typography>
                   </CardContent>
-                  <CardActions>
-                    <Button size="small">Save</Button>
-                    <Button size="small">Edit</Button>
-                  </CardActions>
+
                 </Card>
               </Grid>
             ))}
