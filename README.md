@@ -15,7 +15,7 @@ Browse new, trending and classic "Moovies", add them to your list to watch later
 
 <!-- INSERT DEPLOYED LINK -->
 
-Nothing to install, simply visit our Heroku-deployed application [here](insert_heroku_link).
+Nothing to install, simply visit our Heroku-deployed application [here](https://blooming-anchorage-52775.herokuapp.com/).
 
 ## Usage
 
