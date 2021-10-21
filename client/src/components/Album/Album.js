@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useQuery } from '@apollo/client';
+import { useQuery } from "@apollo/client";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -11,40 +11,60 @@ import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import Avatar from '@mui/material/Avatar';
-import { Icon } from '@iconify/react';
-import {pink} from '@mui/material/colors'
-import { useEffect } from 'react';
+import Avatar from "@mui/material/Avatar";
+import { Icon } from "@iconify/react";
+import { pink } from "@mui/material/colors";
+import { useState, useEffect } from "react";
 
 import { QUERY_COMMENT } from "../../utils/queries";
 import cow from "../../../src/pngegg.png";
+import { Movie } from "../../pages/Movie";
 
 const styles = {
-  pink:{
-    color:'#E91E63',
-    fontWeight:'bolder'
+  pink: {
+    color: "#E91E63",
+    fontWeight: "bolder",
   },
-  brown:{
-    color:'#3f000f',
-    fontWeight:'light'
+  brown: {
+    color: "#3f000f",
+    fontWeight: "light",
   },
-  buttons:{
-    background:'#E91E63'
+  buttons: {
+    background: "#E91E63",
   },
-  img:{
-    maxHeight:'250px',
-    alignContent:'center'
-  }
-}
+  img: {
+    maxHeight: "250px",
+    alignContent: "center",
+  },
+};
 
 // const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 let comments = [];
 
 export function Album() {
-   const { loading, data } = useQuery(QUERY_COMMENT);
-    const comments = data?.comments || [];
+  const [movies, setMovies] = useState([]);
 
+  const { loading, data } = useQuery(QUERY_COMMENT);
+  const comments = data?.comments || [];
 
+  const getPoster = async (comment) => {
+    const url = `https://www.omdbapi.com/?s=${comment}&apikey=95c5c4f`;
+
+    const response = await fetch(url);
+    const responseJson = await response.json();
+
+    const poster = responseJson.Search[0].Poster;
+    console.log(poster);
+    return poster;
+    // if (responseJson.Search) {
+    //   setMovies(responseJson.Search);
+    // }
+  };
+  // useEffect(() => {
+  //   getPoster(comments);
+  // }, []);
+
+  // console.log(getPoster("titanic"));
   // const commmentData = (event) => {
   //   try {
   //     const {comments} = data;
@@ -52,19 +72,18 @@ export function Album() {
   //   } catch {
 
   //   }
-  // } 
-//   useEffect(() => {
-//     // Update the localStorage count variable using the setItem method
-//     //myCount = key, value in that key = count 
-//   console.log(comments)
-//   return comments;
-//  },);
- 
+  // }
+  //   useEffect(() => {
+  //     // Update the localStorage count variable using the setItem method
+  //     //myCount = key, value in that key = count
+  //   console.log(comments)
+  //   return comments;
+  //  },);
 
   return (
     <>
       <CssBaseline />
-      <Avatar  sx={{ m: 1, bgcolor: pink[500] }}>
+      <Avatar sx={{ m: 1, bgcolor: pink[500] }}>
         <Icon icon="mdi:cow" />
       </Avatar>
 
@@ -85,19 +104,21 @@ export function Album() {
               color="text.primary"
               gutterBottom
             >
-                          <img style={styles.img} src={cow} alt="I am a cow"/>
+              <img style={styles.img} src={cow} alt="I am a cow" />
 
-              <span style={styles.pink}>moo</span><span style={styles.brown}>vie</span>
-
+              <span style={styles.pink}>moo</span>
+              <span style={styles.brown}>vie</span>
             </Typography>
-                          <br />
+            <br />
             <Typography
               variant="h5"
               align="center"
               color="text.secondary"
               paragraph
             >
-              Mooooove over Rotten Tomatoes. <br /> Browse new, trending and classic movies without a cluttered UI. Review movies and manage your movie lists to get watching.
+              Mooooove over Rotten Tomatoes. <br /> Browse new, trending and
+              classic movies without a cluttered UI. Review movies and manage
+              your movie lists to get watching.
             </Typography>
             <Stack
               sx={{ pt: 4 }}
@@ -105,18 +126,26 @@ export function Album() {
               spacing={2}
               justifyContent="center"
             >
-              <Button href="/movies" style={styles.buttons}variant="contained">Search Moovies</Button>
-              <Button href="/trending" style={styles.buttons}variant="contained">Trending Moovies</Button>
+              <Button href="/movies" style={styles.buttons} variant="contained">
+                Search Moovies
+              </Button>
+              <Button
+                href="/trending"
+                style={styles.buttons}
+                variant="contained"
+              >
+                Trending Moovies
+              </Button>
             </Stack>
           </Container>
         </Box>
-                  <h1>New Reviews</h1>
+        <h1>New Reviews</h1>
 
         <Container sx={{ pt: 4, pb: 8 }} maxWidth="md">
           {/* End hero unit */}
           <Grid container spacing={4}>
             {comments.map((comment) => (
-              <Grid  xs={12} sm={6} md={4}>
+              <Grid xs={12} sm={6} md={4}>
                 <Card
                   sx={{
                     height: "100%",
@@ -124,16 +153,13 @@ export function Album() {
                     flexDirection: "column",
                   }}
                 >
-
                   <CardContent sx={{ flexGrow: 1 }}>
+                    <img src={getPoster(comment.movieTitle)} />
                     <Typography gutterBottom variant="h5" component="h2">
                       {comment.movieTitle}
                     </Typography>
-                    <Typography>
-                      {comment.commentText}
-                    </Typography>
+                    <Typography>{comment.commentText}</Typography>
                   </CardContent>
-
                 </Card>
               </Grid>
             ))}
@@ -141,7 +167,7 @@ export function Album() {
         </Container>
       </main>
       {/* Footer */}
-      
+
       {/* End footer */}
     </>
   );
