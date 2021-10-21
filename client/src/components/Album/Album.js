@@ -42,7 +42,7 @@ const styles = {
 let comments = [];
 
 export function Album() {
-  const [movies, setMovies] = useState([]);
+  const [movies, setMovies] = useState("");
 
   const { loading, data } = useQuery(QUERY_COMMENT);
   const comments = data?.comments || [];
@@ -53,16 +53,17 @@ export function Album() {
     const response = await fetch(url);
     const responseJson = await response.json();
 
-    const poster = responseJson.Search[0].Poster;
+    const poster = await responseJson.Search[0].Poster;
     console.log(poster);
-    return poster;
-    // if (responseJson.Search) {
-    //   setMovies(responseJson.Search);
-    // }
+
+    if (poster) {
+      setMovies(poster);
+    }
   };
+  // console.log(poster);
   // useEffect(() => {
   //   getPoster(comments);
-  // }, []);
+  // });
 
   // console.log(getPoster("titanic"));
   // const commmentData = (event) => {
@@ -154,7 +155,7 @@ export function Album() {
                   }}
                 >
                   <CardContent sx={{ flexGrow: 1 }}>
-                    <img src={getPoster(comment.movieTitle)} />
+                    <img name={getPoster(comment.movieTitle)} src={movies} />
                     <Typography gutterBottom variant="h5" component="h2">
                       {comment.movieTitle}
                     </Typography>
