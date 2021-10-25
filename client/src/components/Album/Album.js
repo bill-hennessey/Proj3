@@ -18,7 +18,7 @@ import { useState, useEffect } from "react";
 
 import { QUERY_COMMENT } from "../../utils/queries";
 import cow from "../../../src/pngegg.png";
-import { Movie } from "../../pages/Movie";
+// import { Movie } from "../../pages/Movie";
 
 const styles = {
   pink: {
@@ -47,19 +47,19 @@ export function Album() {
   const { loading, data } = useQuery(QUERY_COMMENT);
   const comments = data?.comments || [];
 
-  const getPoster = async (comment) => {
-    const url = `https://www.omdbapi.com/?s=${comment}&apikey=95c5c4f`;
+  // const getPoster = async (comment) => {
+  //   const url = `https://www.omdbapi.com/?s=${comment}&apikey=95c5c4f`;
 
-    const response = await fetch(url);
-    const responseJson = await response.json();
+  //   const response = await fetch(url);
+  //   const responseJson = await response.json();
 
-    const poster = await responseJson.Search[0].Poster;
-    console.log(poster);
+  //   const poster = await responseJson.Search[0].Poster;
+  //   console.log(poster);
 
-    if (poster) {
-      setMovies(poster);
-    }
-  };
+  //   if (poster) {
+  //     setMovies(poster);
+  //   }
+  // };
   // console.log(poster);
   // useEffect(() => {
   //   getPoster(comments);
@@ -155,9 +155,9 @@ export function Album() {
                   }}
                 >
                   <CardContent sx={{ flexGrow: 1 }}>
-                    <img name={getPoster(comment.movieTitle)} src={movies} />
+                    <img src={comment.Poster} />
                     <Typography gutterBottom variant="h5" component="h2">
-                      {comment.movieTitle}
+                      {comment.Title}
                     </Typography>
                     <Typography>{comment.commentText}</Typography>
                   </CardContent>

@@ -3,9 +3,9 @@ const { gql } = require("apollo-server-express");
 const typeDefs = gql`
   type Comment {
     _id: ID
-    movieTitle: String
+    Title: String
     commentText: String
-    poster: String
+    Poster: String
     email: String
     createdAt: String
   }

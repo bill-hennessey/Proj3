@@ -20,7 +20,7 @@ import { ADD_COMMENT } from "../utils/mutations";
 //     }
 // }
 
-export const Comment = () => {
+const Comment = ({ movie }) => {
   const [formState, setFormState] = useState({ commentText: "" });
   const [addComment, { error, data }] = useMutation(ADD_COMMENT);
 
@@ -36,7 +36,7 @@ export const Comment = () => {
   };
 
   // movie title
-  let params = useParams();
+  // let params = useParams();
   // console.log(params)
 
   const handleAddComment = async (event) => {
@@ -44,21 +44,24 @@ export const Comment = () => {
     // console.log({...formState})
     let userId = Auth.getUser().data._id;
 
-    let userID = {
-      userId: userId,
-    };
+    // let Poster = {
+    //   userId: Poster,
+    // };
 
-    let realTitle = {
-      movieTitle: params,
-    };
+    // let Title = {
+    //   Title: Title,
+    // };
 
-    let variables = {
-      userId: { ...userID },
-      movieTitle: { ...realTitle },
-      commentText: { ...formState },
-    };
+    // let variables = {
+    //   userId: { ...userID },
+    //   movieTitle: { ...realTitle },
+    //   commentText: { ...formState },
+    // };
 
-    console.log(variables);
+    // console.log(Poster);
+    // console.log(Title);
+    // console.log()
+    // console.log(variables);
     // let token = Auth.getToken();
 
     // console.log(userID)
@@ -67,7 +70,13 @@ export const Comment = () => {
 
     try {
       const { data } = await addComment({
-        variables: { userId, ...params, ...formState },
+        variables: {
+          userId,
+          ...movie,
+          // Title: { ...Title },
+          // Poster: { ...Poster },
+          ...formState,
+        },
       });
     } catch (e) {
       console.error(e);
@@ -111,3 +120,5 @@ export const Comment = () => {
     </>
   );
 };
+
+export default Comment;
