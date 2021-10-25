@@ -19,9 +19,11 @@ export const QUERY_USER = gql`
 // `;
 
 export const QUERY_COMMENT = gql`
-  query comments{
-    comments {    
+  query comments {
+    comments {
       commentText
-      movieTitle
+      Title
+      Poster
     }
-  }`;
+  }
+`;

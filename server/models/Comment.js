@@ -9,7 +9,10 @@ const commentSchema = new Schema({
     maxlength: 280,
     trim: true,
   },
-  movieTitle: {
+  Title: {
+    type: String,
+  },
+  Poster: {
     type: String,
   },
 

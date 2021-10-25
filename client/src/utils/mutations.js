@@ -46,7 +46,22 @@ export const ADD_MOVIE = gql`
 
 export const ADD_COMMENT = gql`
   mutation addComment(
-    $userId: ID!, $commentText: String!, $movieTitle: String
-  ){
-    addComment(userId: $userId, commentText:$commentText, movieTitle: $movieTitle){firstName lastName comments{commentText}}
-  }`
+    $userId: ID!
+    $commentText: String!
+    $Title: String
+    $Poster: String
+  ) {
+    addComment(
+      userId: $userId
+      commentText: $commentText
+      Title: $Title
+      Poster: $Poster
+    ) {
+      firstName
+      lastName
+      comments {
+        commentText
+      }
+    }
+  }
+`;
