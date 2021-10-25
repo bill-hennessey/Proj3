@@ -26,18 +26,26 @@ const resolvers = {
       return { token, user };
     },
 
-    addComment: async (parent, { userId, movieTitle, commentText }, context) => {
+    addComment: async (
+      parent,
+      { userId, Title, Poster, commentText },
+      context
+    ) => {
       // if (context.user) {
-        const commentInfo = await Comment.create({ movieTitle, commentText });
-        return User.findOneAndUpdate(
-          { _id: userId },
-          {
-            $addToSet: {
-              comments: commentInfo._id,
-            },
+      const commentInfo = await Comment.create({
+        Title,
+        commentText,
+        Poster,
+      });
+      return User.findOneAndUpdate(
+        { _id: userId },
+        {
+          $addToSet: {
+            comments: commentInfo._id,
           },
-          { new: true }
-        ).populate("comments");
+        },
+        { new: true }
+      ).populate("comments");
       // }
       // throw new AuthenticationError("You need to be logged in!");
     },
