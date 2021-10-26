@@ -35,6 +35,7 @@ const styles = {
   img: {
     maxHeight: "250px",
     alignContent: "center",
+    objectFit:'contain',
   },
 };
 
@@ -130,21 +131,15 @@ export function Album() {
               <Button href="/movies" style={styles.buttons} variant="contained">
                 Search Moovies
               </Button>
-              <Button
-                href="/trending"
-                style={styles.buttons}
-                variant="contained"
-              >
-                Trending Moovies
-              </Button>
+
             </Stack>
           </Container>
         </Box>
         <h1>New Reviews</h1>
 
-        <Container sx={{ pt: 4, pb: 8 }} maxWidth="md">
+        <Container sx={{ px: 2, pt: 4, pb: 8 }} maxWidth="md">
           {/* End hero unit */}
-          <Grid container spacing={4}>
+          <Grid container spacing={5}>
             {comments.map((comment) => (
               <Grid xs={12} sm={6} md={4}>
                 <Card
@@ -152,6 +147,7 @@ export function Album() {
                     height: "100%",
                     display: "flex",
                     flexDirection: "column",
+                    objectFit:'contain'
                   }}
                 >
                   <CardContent sx={{ flexGrow: 1 }}>

@@ -9,20 +9,27 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { useParams } from "react-router-dom";
+import { createTheme } from "@mui/system";
+
 
 import Auth from "../utils/auth";
 
 import { ADD_COMMENT } from "../utils/mutations";
 
-// const styles = {
-//     background:{
-//         background: 'black'
-//     }
-// }
+// const theme = createTheme({
+//   palette: {
+//     secondary: {
+//       main: '#11cb5f',
+//     },
+//   },
+// });
 
 const Comment = ({ movie }) => {
   const [formState, setFormState] = useState({ commentText: "" });
+  let [toggleComments, setToggleComments] = useState(false)
+
   const [addComment, { error, data }] = useMutation(ADD_COMMENT);
+  
 
   // console.log(Auth.getUser().data._id)
 
@@ -89,17 +96,17 @@ const Comment = ({ movie }) => {
   };
   return (
     <>
-      <Avatar sx={{ m: 1, bgcolor: pink[500] }}>
-        <Icon icon="mdi:cow" />
+      <Avatar onClick={()=>{setToggleComments(!toggleComments)}} sx={{ m: 1, bgcolor: pink[500] }}>
+        <Icon icon="mdi:comment" />
       </Avatar>
-      <Box
+      {toggleComments && <Box
         component="form"
         sx={{}}
         noValidate
         autoComplete="off"
         onSubmit={handleAddComment}
       >
-        <h1>Leave a comment</h1>
+        <h3>Leave a comment</h3>
         <TextField
           onChange={handleChange}
           id="filled-basic"
@@ -109,6 +116,7 @@ const Comment = ({ movie }) => {
           value={formState.commentText}
         />
         <Button
+          color="secondary"
           type="submit"
           fullWidth
           variant="contained"
@@ -116,7 +124,7 @@ const Comment = ({ movie }) => {
         >
           Add Comment
         </Button>
-      </Box>
+      </Box>}
     </>
   );
 };
