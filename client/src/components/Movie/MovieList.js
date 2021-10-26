@@ -1,9 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Comment from "../../pages/Comment";
+import auth from '../../utils/auth';
+
 
 const MovieList = (props) => {
   const FavouriteComponent = props.favouriteComponent;
+
+  const isLoggedIn = auth.loggedIn()
+  console.log(isLoggedIn)
 
   return (
     <>
@@ -23,7 +28,7 @@ const MovieList = (props) => {
             <div onClick={() => props.handleFavouritesClick(movie)}>
             <FavouriteComponent />
             </div>
-            <Comment movie={movie} />
+            {isLoggedIn ? <Comment movie={movie} /> : <div /> }
           </div>
                       
 
