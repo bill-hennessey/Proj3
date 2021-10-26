@@ -135,7 +135,19 @@ export function Album() {
             </Stack>
           </Container>
         </Box>
-        <h1>New Reviews</h1>
+          <br />
+            <Typography
+              component="h2"
+              variant="h2"
+              align="center"
+              color="text.primary"
+              paragraph
+            >
+              New Reviews
+            </Typography>
+
+
+        {/* <h1>New Reviews</h1> */}
 
         <Container sx={{ px: 2, pt: 4, pb: 8 }} maxWidth="md">
           {/* End hero unit */}

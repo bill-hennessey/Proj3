@@ -56,7 +56,7 @@ export function BottomNav() {
         <BottomNavigationAction href="/" label="Home" style={styles.linkStyle} icon={<HomeIcon />} />
         <BottomNavigationAction href={loginLink} label={loginText} style={styles.linkStyle}icon={<SupervisorAccountIcon />} />
         <BottomNavigationAction href="/favorites" label="Favorites" style={styles.linkStyle}icon={<FavoriteIcon />} />
-        <BottomNavigationAction href="/movies" label="Find Movies" style={styles.linkStyle}icon={<LocalMoviesIcon />} />
+        <BottomNavigationAction href="/movies" label="Movies" style={styles.linkStyle}icon={<LocalMoviesIcon />} />
         <BottomNavigationAction href="/aboutus" label="About Us" style={styles.linkStyle}icon={<GitHubIcon />} />
       </BottomNavigation>
     </Box>
