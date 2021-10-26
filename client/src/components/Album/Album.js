@@ -174,7 +174,7 @@ export function Album() {
                       {comment.user.map((user) => (
                         <p>
                           {" "}
-                          Author : {user.firstName}{" "}
+                          <span style={styles.pink}>Author</span> : {user.firstName}{" "}
                           {user.lastName.charAt(0).toUpperCase()}
                         </p>
                       ))}
