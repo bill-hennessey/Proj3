@@ -8,22 +8,26 @@ const MovieList = (props) => {
   return (
     <>
       {props.movies.map((movie, index) => (
-        <div className="image-container d-flex justify-content-start m-6">
+        <div className="image-container d-flex flex-column justify-content-start m-3">
           <img
             src={movie.Poster}
             href={`/comment/${movie.Title}`}
             alt={movie.Title}
             onClick={() => console.log("PIC CLICK WORKS")}
           ></img>
-          <div>
-            <Comment movie={movie} />
-          </div>
+
           <div
-            onClick={() => props.handleFavouritesClick(movie)}
+            
             className="overlay d-flex align-items-center justify-content-center"
           >
+            <div onClick={() => props.handleFavouritesClick(movie)}>
             <FavouriteComponent />
+            </div>
+            <Comment movie={movie} />
           </div>
+                      
+
+
         </div>
       ))}
     </>
