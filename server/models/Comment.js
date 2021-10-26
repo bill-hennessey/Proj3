@@ -15,6 +15,12 @@ const commentSchema = new Schema({
   Poster: {
     type: String,
   },
+  user: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+    },
+  ],
 
   createdAt: {
     type: Date,

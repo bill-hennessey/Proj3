@@ -159,7 +159,18 @@ export function Album() {
                     <Typography gutterBottom variant="h5" component="h2">
                       {comment.Title}
                     </Typography>
+
+                    {/* <p>{comment.user.lastName}</p> */}
                     <Typography>{comment.commentText}</Typography>
+                    <p>
+                      {comment.user.map((user) => (
+                        <p>
+                          {" "}
+                          Author : {user.firstName}{" "}
+                          {user.lastName.charAt(0).toUpperCase()}
+                        </p>
+                      ))}
+                    </p>
                   </CardContent>
                 </Card>
               </Grid>

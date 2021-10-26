@@ -6,7 +6,7 @@ const typeDefs = gql`
     Title: String
     commentText: String
     Poster: String
-    email: String
+    user: [User]
     createdAt: String
   }
   type Review {
