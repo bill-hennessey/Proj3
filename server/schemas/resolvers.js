@@ -9,7 +9,7 @@ const { signToken } = require("../utils/auth");
 const resolvers = {
   Query: {
     comments: async () => {
-      return await Comment.find(); //.sort({ createdAt: -1 });
+      return await Comment.find().populate("user"); //.sort({ createdAt: -1 });
     },
     user: async (parent, { _id }) => {
       return await User.findById({ _id }).populate("comments");
@@ -36,6 +36,7 @@ const resolvers = {
         Title,
         commentText,
         Poster,
+        user: userId,
       });
       return User.findOneAndUpdate(
         { _id: userId },

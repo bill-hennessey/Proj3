@@ -24,6 +24,10 @@ export const QUERY_COMMENT = gql`
       commentText
       Title
       Poster
+      user {
+        firstName
+        lastName
+      }
     }
   }
 `;
